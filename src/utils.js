@@ -1,5 +1,5 @@
 // use scrollIntoView function to locate the anchor point In the same page
-function _scrollIntoViewById(id, f) {
+function scrollIntoViewById(id, f) {
     f = typeof f !== 'undefined' ? f : true;
     document.getElementById(id).scrollIntoView(f);
 }
