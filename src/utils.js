@@ -49,6 +49,7 @@ function getNextElement(node) {
 
 // 设置标签的className，为标签添加类
 function addClass(element, value) {
+    var newClassName;
     if (!element.className) {
         element.className = value;
     } else {
