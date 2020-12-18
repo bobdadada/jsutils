@@ -4,6 +4,80 @@ function scrollIntoViewById(id, f) {
     document.getElementById(id).scrollIntoView(f);
 }
 
+// collection to array
+function toArray(coll) {
+    let a = [];
+    for (let i=0, len=coll.length; i<len; i++) {
+        a.push(coll[i]);
+    }
+    return a;
+}
+
+// 使用定时器异步处理array
+function processArrayByTimer(items, process, callback){
+    let todo = items.concat();  // 克隆原数组
+
+    setTimeout(function(){
+        process(todo.shift());
+
+        if (todo.length > 0) {
+            setTimeout(arguments.callee, 25);
+        } else {
+            callback(items);
+        }
+    }, 25);
+}
+
+// 使用定时器异步处理长于50ms的任务
+function timedProcessArrayByTimer(items, process, callback){
+    let todo = items.concat();  // 克隆原数组
+
+    setTimeout(function(){
+        let start = +new Date();  // +使得日期转化成数字
+        
+        do {
+            process(todo.shift());
+        } while (todo.length > 0 && (+new Date() - start < 50));
+
+        if (todo.length > 0) {
+            setTimeout(arguments.callee, 25);
+        } else {
+            callback(items);
+        }
+    }, 25);
+}
+
+// 使用定时器分步运行各步骤
+function multistepByTimer(steps, args, callback){
+    let tasks = steps.concat();  // 克隆数组
+    
+    setTimeout(function(){
+
+        // 执行下一个任务
+        let task = tasks.shift();
+        task.apply(null, args||[]);
+
+        if (tasks.length > 0){
+            setTimeout(arguments.callee, 25);
+        } else {
+            callback();
+        }
+    }, 25);
+}
+
+function resolvePath(path) {
+    const segments = path.split('/');
+    let resolved = [];
+    for (let i=0, len=segments.length; i<len; i++){
+        if (segments[i] === '..') {
+            resolved.pop();
+        } else if (segments[i] !== '.') {
+            resolved.push(segments[i]);
+        }
+    }
+    return resolved.join('/');
+}
+
 function logDate() {
     "use strict";
     var now = new Date();
