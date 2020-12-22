@@ -89,27 +89,26 @@ function resolvePath(path) {
 }
 
 function logDate() {
-    "use strict";
-    var now = new Date();
+    let now = new Date();
     return now.toDateString();
 }
 
 // 增加页面加载完成后所需要执行的代码
-function addLoadEvent(func){
-    var oldonload = window.onload;
+function addLoadEvent(fn){
+    let oldonload = window.onload;
     if (typeof oldonload !== "function"){
-        window.onload = func;
+        window.onload = fn;
     } else {
-        window.onload = function(){
+        window.onload = ()=>{
             oldonload();
-            func();
+            fn();
         }
     }
 }
 
 // 编写insertAfter函数
 function insertAfter(newElement, targetElement) {
-    var parent = targetElement.parentNode;
+    let parent = targetElement.parentNode;
     if (parent.lastChild === targetElement) {
         parent.appendChild(newElement);
     } else {
@@ -133,11 +132,10 @@ function getNextElement(node) {
 
 // 设置标签的className，为标签添加类
 function addClass(element, value) {
-    var newClassName;
     if (!element.className) {
         element.className = value;
     } else {
-        newClassName = element.className;
+        let newClassName = element.className;
         newClassName += " ";
         newClassName += value;
         element.className = newClassName;
