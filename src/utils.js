@@ -1,7 +1,17 @@
 // use scrollIntoView function to locate the anchor point In the same page
 function scrollIntoViewById(id, f) {
     f = typeof f !== 'undefined' ? f : true;
-    document.getElementById(id).scrollIntoView(f);
+    let el = document.getElementById(id);
+    el && el.scrollIntoView(f);
+}
+
+// 按键防抖
+function debounce(fn, delay) {
+    let timer = null;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(()=>{fn.apply(this, args);},delay);
+    }
 }
 
 // collection to array
